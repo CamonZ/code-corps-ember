@@ -13,13 +13,28 @@
       </div>
     </div>
 
+    {{#each project.organization.organizationGithubAppInstallations as |organizationGithubAppInstallation|}}
+      {{github-app-installation
+        githubAppInstallation=organizationGithubAppInstallation.githubAppInstallation
+        organization=organization
+        organizationGithubAppInstallation=organizationGithubAppInstallation
+      }}
+    {{/each}}
+
+    {{#each project.organization.organizationGithubAppInstallations as |organizationGithubAppInstallation|}}
+      {{github-app-installation
+        githubAppInstallation=organizationGithubAppInstallation.githubAppInstallation
+        organization=organization
+      }}
+    {{/each}}
+
     {{#if user.githubId}}
       <p>
         <a href="https://github.com/apps/code-corps-local" data-test-installation-link class="button button__github button__github--light default"><span></span>Install on GitHub</a>
         Add a GitHub account to the <strong>{{project.organization.name}}</strong> organization by installing on GitHub.
       </p>
     {{else}}
-      Connect to GitHub in your {{link-to data-test-integrations-link 'user integration settings' 'settings.integrations'}} before installing GitHub on the <strong>{{project.organization.name}}</strong> organization.
+      Connect to GitHub in your {{link-to data-test-integrations-link 'user integration settings' 'settings.integrations'}} before adding a GitHub account to the <strong>{{project.organization.name}}</strong> organization.
     {{/if}}
   </div>
 </div>
