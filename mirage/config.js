@@ -152,6 +152,13 @@ export default function() {
   this.get('/github-app-installations/:id');
 
   /**
+  * Github Repos
+  */
+
+  this.get('/github-repos', { coalesce: true });
+  this.get('/github-repos/:id');
+
+  /**
   * Organizations
   */
 
@@ -239,6 +246,15 @@ export default function() {
   this.post('/project-categories');
   this.get('/project-categories/:id');
   this.delete('/project-categories/:id');
+
+  /**
+  * Project Github Repos
+  */
+
+  this.get('/project-github-repos', { coalesce: true });
+  this.post('/project-github-repos');
+  this.get('/project-github-repos/:id');
+  this.delete('/project-github-repos/:id');
 
   /**
   * Project skills

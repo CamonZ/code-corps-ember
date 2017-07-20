@@ -234,6 +234,21 @@ export default function(server) {
     organization
   });
 
+  let githubRepo = server.create('github-repo', {
+    githubAppInstallation: connectedInstallation,
+    name: 'code-corps-api'
+  });
+
+  server.create('project-github-repo', {
+    githubRepo,
+    project
+  });
+
+  server.create('github-repo', {
+    githubAppInstallation: connectedInstallation,
+    name: 'code-corps-ember'
+  });
+
   let inboxTaskList = server.create('task-list', {
     name: 'Inbox',
     position: 0,

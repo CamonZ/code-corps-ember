@@ -1,0 +1,15 @@
+.github-repo {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+
+  &__name {
+    &:before {
+      content: "";
+      display: inline-block;
+      margin: 0 10px 0 0;
+      vertical-align: middle;
+      @include sprite($repo);
+    }
+  }
+}
