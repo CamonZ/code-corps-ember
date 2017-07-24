@@ -1,25 +1,82 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import Ember from 'ember';
+import PageObject from 'ember-cli-page-object';
+import githubRepoComponent from 'code-corps-ember/tests/pages/components/github-repo';
+
+let page = PageObject.create(githubRepoComponent);
+
+const {
+  set
+} = Ember;
+
+function setHandlers(context, { connectHandler = function() {}, removeHandler = function() {} } = {}) {
+  set(context, 'connectHandler', connectHandler);
+  set(context, 'removeHandler', removeHandler);
+}
+
+function renderPage() {
+  page.render(hbs`
+    {{github-repo
+      connect=(action connectHandler)
+      isConnected=isConnected
+      name=name
+      remove=(action removeHandler)
+    }}
+  `);
+}
 
 moduleForComponent('github-repo', 'Integration | Component | github repo', {
-  integration: true
+  integration: true,
+  beforeEach() {
+    setHandlers(this);
+    page.setContext(this);
+  },
+  afterEach() {
+    page.removeContext();
+  }
 });
 
-test('it renders', function(assert) {
+test('it renders the name', function(assert) {
+  assert.expect(1);
+  let name = "code-corps-ember";
+  set(this, 'name', name);
+  renderPage();
+  assert.equal(page.name.text, name);
+});
 
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
+test('it renders correctly when not connected', function(assert) {
+  assert.expect(2);
+  set(this, 'isConnected', false);
+  renderPage();
+  assert.ok(page.connectButton.isVisible);
+  assert.notOk(page.isConnected);
+});
 
-  this.render(hbs`{{github-repo}}`);
+test('it renders correctly when connected', function(assert) {
+  assert.expect(2);
+  set(this, 'isConnected', true);
+  renderPage();
+  assert.ok(page.removeLink.isVisible);
+  assert.ok(page.isConnected);
+});
 
-  assert.equal(this.$().text().trim(), '');
+test('it sends the connect action when the button is clicked', function(assert) {
+  assert.expect(1);
+  set(this, 'isConnected', false);
+  set(this, 'connectHandler', function() {
+    assert.ok(true);
+  });
+  renderPage();
+  page.connectButton.click();
+});
 
-  // Template block usage:
-  this.render(hbs`
-    {{#github-repo}}
-      template block text
-    {{/github-repo}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+test('it sends the remove action when the link is clicked', function(assert) {
+  assert.expect(1);
+  set(this, 'isConnected', true);
+  set(this, 'removeHandler', function() {
+    assert.ok(true);
+  });
+  renderPage();
+  page.removeLink.click();
 });
