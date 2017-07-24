@@ -1,2 +1,9 @@
-<div class="github-repo__name">{{githubRepo.name}} {{isConnected}}</div>
-<div></div>
+<div class="github-repo__name">{{githubRepo.name}}</div>
+<div class="github-repo__actions">
+  {{#if isConnected}}
+    <div class="github-repo__sync">Connected</div>
+    <a {{action "remove" projectGithubRepo}} class="github-repo__remove-link">Remove</a>
+  {{else}}
+    <button {{action "connect"}} class="clear small">Connect</button>
+  {{/if}}
+</div>
