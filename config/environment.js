@@ -90,6 +90,7 @@ module.exports = function(environment) {
     ENV.WEB_BASE_URL = 'http://localhost:4200';
     ENV.cloudinary.cloud = 'dlfnmtoq1';
     ENV.cloudinary.uploadPreset = 'xjyyogvi';
+    ENV.github.appUrl = 'https://github.com/apps/code-corps-local';
     ENV.github.clientId = 'Iv1.86cea3d2991aea7a';
     ENV.github.redirectUri = 'http://localhost:4200/oauth/github';
     ENV.sentry.development = true;

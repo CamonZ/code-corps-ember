@@ -15,6 +15,5 @@ export default Model.extend({
 
   githubRepos: hasMany('github-repo', { async: true }),
   organizationGithubAppInstallations: hasMany('organization-github-app-installation', { async: true }),
-  project: belongsTo('project', { async: true }),
   user: belongsTo('user', { async: true })
 });

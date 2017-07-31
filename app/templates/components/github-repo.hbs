@@ -1,9 +1,8 @@
-<div class="github-repo__name" data-test-selector="github repo name">{{name}}</div>
+<div class="github-repo__name" data-test-selector="github repo name">{{githubRepo.name}}</div>
 <div class="github-repo__actions">
-  {{#if isConnected}}
-    <div class="github-repo__sync">Connected</div>
-    <a {{action remove}} class="github-repo__remove-link" data-test-selector="github repo remove link">Remove</a>
+  {{#if githubRepo.isLoading}}
+    Loading...
   {{else}}
-    <button {{action connect}} class="clear small" data-test-selector="github repo connect button">Connect</button>
+    {{yield}}
   {{/if}}
 </div>

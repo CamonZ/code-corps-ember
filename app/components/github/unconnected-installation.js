@@ -12,7 +12,7 @@ const {
 } = Ember;
 
 export default Component.extend({
-  classNames: ['github-app-installation'],
+  classNames: ['github-app-installation unconnected'],
 
   store: service(),
 

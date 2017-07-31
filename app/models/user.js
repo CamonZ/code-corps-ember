@@ -27,7 +27,7 @@ export default Model.extend({
 
   stateTransition: attr(),
 
-  githubAppInstallations: hasMany('github-app-installations', { async: true }),
+  githubAppInstallations: hasMany('github-app-installation', { async: true }),
 
   projectUsers: hasMany('project-user', { async: true }),
 

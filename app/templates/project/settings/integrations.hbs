@@ -13,27 +13,34 @@
       </div>
     </div>
 
-    {{#each project.organization.organizationGithubAppInstallations as |organizationGithubAppInstallation|}}
-      {{github-app-installation
-        githubAppInstallation=organizationGithubAppInstallation.githubAppInstallation
-        githubRepos=organizationGithubAppInstallation.githubAppInstallation.githubRepos
+    <h3>Unconnected installations</h3>
+    {{#each unconnectedInstallations as |githubAppInstallation|}}
+      {{github/unconnected-installation
+        connect=(action 'connect' organization githubAppInstallation)
+        githubAppInstallation=githubAppInstallation
         organization=organization
-        organizationGithubAppInstallation=organizationGithubAppInstallation
+      }}
+    {{else}}
+      No unconnected installations found. Install one using the button below.
+    {{/each}}
+
+    <h3>Connected installations</h3>
+    {{#each installationConnections as |organizationGithubAppInstallation|}}
+      {{github/connected-installation
+        disconnect=(action 'disconnect' organizationGithubAppInstallation)
+        githubAppInstallation=organizationGithubAppInstallation.githubAppInstallation
+        organization=organization
         project=project
       }}
+    {{else}}
+      Connect one of your installation to access integration features.
     {{/each}}
 
-    {{#each project.organization.organizationGithubAppInstallations as |organizationGithubAppInstallation|}}
-      {{github-app-installation
-        githubAppInstallation=organizationGithubAppInstallation.githubAppInstallation
-        organization=organization
-      }}
-    {{/each}}
-
+    <h3>Not finding your installation?</h3>
     {{#if user.githubId}}
       <p>
-        <a href="https://github.com/apps/code-corps-local" data-test-installation-link class="button button__github button__github--light default"><span></span>Install on GitHub</a>
-        Add a GitHub account to the <strong>{{project.organization.name}}</strong> organization by installing on GitHub.
+        <p>Add a GitHub account to the <strong>{{project.organization.name}}</strong> organization by installing on GitHub.</p>
+        <a href={{githubAppUrl}} data-test-installation-link class="button button__github button__github--light default"><span></span>Install on GitHub</a>
       </p>
     {{else}}
       Connect to GitHub in your {{link-to data-test-integrations-link 'user integration settings' 'settings.integrations'}} before adding a GitHub account to the <strong>{{project.organization.name}}</strong> organization.
